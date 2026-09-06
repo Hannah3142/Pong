@@ -4,7 +4,7 @@ var radius = 10
 const white = Color.WHITE
 
 var target_speed = 7
-var ball_speed = 3
+var ball_speed = 0
 var angle = randi_range(0, 359)
 
 signal diverted
@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 		is_game_over = true
 		adjust_speed = false
 	
-	if adjust_speed == true and ball_speed < target_speed:
+	if adjust_speed == true and ball_speed < target_speed and ball_speed != 0:
 		ball_speed = move_toward(ball_speed, target_speed, delta)
 
 func _physics_process(delta: float) -> void:

@@ -1,7 +1,11 @@
 extends Node2D
 
 # canvas dimensions: 648, 1152
+# center Vector2(575, 323.5)
+
 @onready var ball: Area2D = $Ball
+@onready var paddle: Area2D = $Paddle
+
 var score = 0
 var high_score = 0
 
@@ -14,7 +18,20 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if ball.ball_speed == 0:
+		ball.position = Vector2(575+225*cos(paddle.rotation), 323.5+225*sin(paddle.rotation))
+		if Input.is_action_pressed("ui_up"):
+			ball.ball_speed = 3
+			if ball.position.x < 575:
+				if ball.position.y < 323.5:
+					ball.angle = randi_range(10, 80)
+				else:
+					ball.angle = randi_range(280, 350)
+			else:
+				if ball.position.y < 323.5:
+					ball.angle = randi_range(100, 170)
+				else:
+					ball.angle = randi_range(190, 260)
 
 func failed():
 	$HUD/Restart.show()
@@ -24,9 +41,12 @@ func failed():
 
 func new_game():
 	$HUD/Restart.hide()
-	ball.position = Vector2(600, 300)
-	ball.ball_speed = 3
-	ball.angle = randi_range(0, 359)
+	
+	var ball_x = 575+225*cos(paddle.rotation)
+	var ball_y = 323.5+225*sin(paddle.rotation)
+	ball.position = Vector2(ball_x, ball_y)
+	ball.ball_speed = 0
+	#ball.angle = randi_range(0, 359)
 	ball.is_game_over = false
 	ball.adjust_speed = true
 	score = 0
