@@ -11,6 +11,8 @@ var point_count = 50
 var thickness = 20
 var white = Color.WHITE
 
+var paddle_rotation = 0
+
 var collision_poly: CollisionPolygon2D
 
 # Called when the node enters the scene tree for the first time.
@@ -27,6 +29,8 @@ func _physics_process(delta: float) -> void:
 		rotation += deg_to_rad(paddle_speed)
 	elif Input.is_action_pressed("ui_right"):
 		rotation -= deg_to_rad(paddle_speed)
+	paddle_rotation = rad_to_deg(rotation)
+	paddle_rotation = wrapf(paddle_rotation, 0, 360)
 
 func _draw():
 	draw_arc(Vector2.ZERO, radius, deg_to_rad(start_angle), deg_to_rad(end_angle), point_count, white, thickness)
