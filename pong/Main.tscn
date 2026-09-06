@@ -1,6 +1,18 @@
 [gd_scene format=3 uid="uid://b821myv7hqira"]
 
 [ext_resource type="Script" uid="uid://5kew2vksj747" path="res://Main.gd" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://sr0ftdcvwvxd" path="res://Arena.gd" id="2_r0du0"]
+[ext_resource type="Script" uid="uid://h1fodfr0d5h2" path="res://Paddle.gd" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://cnjbxc0onp45c" path="res://Ball.gd" id="5_fos0i"]
 
 [node name="Main" type="Node2D" unique_id=1626000866]
 script = ExtResource("1_glv2v")
+
+[node name="Arena" type="Node2D" parent="." unique_id=1768318237]
+script = ExtResource("2_r0du0")
+
+[node name="Paddle" type="Area2D" parent="." unique_id=1446421233]
+script = ExtResource("3_cm0pq")
+
+[node name="Ball" type="Area2D" parent="." unique_id=625061876]
+script = ExtResource("5_fos0i")
