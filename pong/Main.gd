@@ -24,12 +24,13 @@ func failed():
 
 func new_game():
 	$HUD/Restart.hide()
-	ball.position = Vector2(575, 323.5)
+	ball.position = Vector2(600, 300)
 	ball.ball_speed = 3
-	ball.angle = randi_range(230, 250)
+	ball.angle = randi_range(0, 359)
 	ball.is_game_over = false
 	ball.adjust_speed = true
 	score = 0
+	$HUD/Score.text = str(score) + " Score"
 
 func increase_score():
 	score += 1
