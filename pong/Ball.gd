@@ -3,8 +3,14 @@ extends Area2D
 var radius = 10
 const white = Color.WHITE
 
-var ball_speed = 5
-var angle = randi_range(230, 250)
+var target_speed = 5
+var ball_speed = target_speed
+var angle = randi_range(230, 310)
+
+signal diverted
+signal failed
+var is_game_over = false
+var adjust_speed = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,7 +25,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if sqrt(pow(position.x-575, 2) + pow(position.y-323.5, 2)) >= 250 and is_game_over == false:
+		ball_speed = 0.2
+		failed.emit()
+		is_game_over = true
+		adjust_speed = false
+	
+	if adjust_speed == true and ball_speed < target_speed:
+		ball_speed = move_toward(ball_speed, target_speed, delta)
 
 func _physics_process(delta: float) -> void:
 	var r_angle = deg_to_rad(angle)
@@ -39,3 +52,4 @@ func on_area_entered(other_area: Area2D) -> void:
 	else:
 		angle = angle - 2*alpha -180
 	angle = wrapf(angle, 0, 360)
+	diverted.emit()

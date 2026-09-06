@@ -16,3 +16,31 @@ script = ExtResource("3_cm0pq")
 
 [node name="Ball" type="Area2D" parent="." unique_id=625061876]
 script = ExtResource("5_fos0i")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=607246976]
+
+[node name="Restart" type="Button" parent="HUD" unique_id=973308325]
+offset_left = 510.5
+offset_top = 300.0
+offset_right = 637.0
+offset_bottom = 350.0
+theme_override_font_sizes/font_size = 30
+text = "Restart"
+
+[node name="Score" type="Label" parent="HUD" unique_id=661422335]
+offset_left = 951.0
+offset_top = 23.0
+offset_right = 1127.0
+offset_bottom = 67.0
+theme_override_font_sizes/font_size = 31
+text = "0 Score"
+horizontal_alignment = 2
+
+[node name="HighScore" type="Label" parent="HUD" unique_id=2085237094]
+offset_left = 970.0
+offset_top = 74.0
+offset_right = 1125.0
+offset_bottom = 97.0
+theme_override_font_sizes/font_size = 21
+text = "0 HIGH SCORE"
+horizontal_alignment = 2
