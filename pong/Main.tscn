@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://5kew2vksj747" path="res://Main.gd" id="1_glv2v"]
 [ext_resource type="Script" uid="uid://sr0ftdcvwvxd" path="res://Arena.gd" id="2_r0du0"]
-[ext_resource type="Script" uid="uid://h1fodfr0d5h2" path="res://Paddle.gd" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://h1fodfr0d5h2" path="res://Paddle1.gd" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://dmod5bdrdsyvw" path="res://Paddle2.gd" id="4_fos0i"]
 [ext_resource type="Script" uid="uid://cnjbxc0onp45c" path="res://Ball.gd" id="5_fos0i"]
 
 [node name="Main" type="Node2D" unique_id=1626000866]
@@ -11,8 +12,11 @@ script = ExtResource("1_glv2v")
 [node name="Arena" type="Node2D" parent="." unique_id=1768318237]
 script = ExtResource("2_r0du0")
 
-[node name="Paddle" type="Area2D" parent="." unique_id=1446421233]
+[node name="Paddle1" type="Area2D" parent="." unique_id=1446421233]
 script = ExtResource("3_cm0pq")
+
+[node name="Paddle2" type="Area2D" parent="." unique_id=513190406]
+script = ExtResource("4_fos0i")
 
 [node name="Ball" type="Area2D" parent="." unique_id=625061876]
 script = ExtResource("5_fos0i")
@@ -44,3 +48,35 @@ offset_bottom = 97.0
 theme_override_font_sizes/font_size = 21
 text = "0 HIGH SCORE"
 horizontal_alignment = 2
+
+[node name="Turn" type="Label" parent="HUD" unique_id=401380703]
+offset_left = 23.0
+offset_top = 22.0
+offset_right = 221.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 31
+text = "Player Turn: 1"
+
+[node name="Player1Mistakes" type="Label" parent="HUD" unique_id=1720178384]
+offset_left = 24.0
+offset_top = 71.0
+offset_right = 241.0
+offset_bottom = 101.0
+theme_override_font_sizes/font_size = 21
+text = "Player 1 Mistakes: 0"
+
+[node name="Player2Mistakes" type="Label" parent="HUD" unique_id=165081941]
+offset_left = 24.0
+offset_top = 102.0
+offset_right = 235.0
+offset_bottom = 132.0
+theme_override_font_sizes/font_size = 21
+text = "Player 2 Mistakes: 0"
+
+[node name="Winner" type="Label" parent="HUD" unique_id=2143528745]
+offset_left = 422.0
+offset_top = 224.0
+offset_right = 735.0
+offset_bottom = 282.0
+theme_override_font_sizes/font_size = 42
+text = "Player 0 WON!!!"

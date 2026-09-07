@@ -1,5 +1,6 @@
 extends Area2D
-class_name Paddle
+
+class_name Paddle1
 
 # -10, 10; -15, 15
 var start_angle = -15
@@ -25,9 +26,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_key_pressed(KEY_LEFT):
 		rotation += deg_to_rad(paddle_speed)
-	elif Input.is_action_pressed("ui_right"):
+	elif Input.is_key_pressed(KEY_RIGHT):
 		rotation -= deg_to_rad(paddle_speed)
 	paddle_rotation = rad_to_deg(rotation)
 	paddle_rotation = wrapf(paddle_rotation, 0, 360)
