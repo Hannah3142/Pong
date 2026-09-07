@@ -9,14 +9,15 @@ var ball_speed = 0
 
 signal diverted
 signal failed
-var is_game_over = false
+var is_game_over = true
 var adjust_speed = true
 
 var turn = 1
+var player_amount = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	position = Vector2(600, 300)
+	position = Vector2(575, 323.5)
 	queue_redraw()
 	var collision_node = CollisionShape2D.new()
 	var circle_shape = CircleShape2D.new()
@@ -61,8 +62,9 @@ func on_area_entered(other_area: Area2D) -> void:
 		else:
 			angle = angle - 2*alpha -180
 		angle = wrapf(angle, 0, 360)
-		if turn == 1:
-			turn = 2
-		else:
-			turn = 1
+		if player_amount > 1:
+			if turn == 1:
+				turn = 2
+			else:
+				turn = 1
 		diverted.emit()

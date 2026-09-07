@@ -11,20 +11,32 @@ var score = 0
 var high_score = 0
 var start_player = 1
 
+var player_amount = 1
+
 var player1_mistakes = 0
 var player2_mistakes = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$HUD/Restart.hide()
-	$HUD/Winner.hide()
-	$HUD/Restart.pressed.connect(restart)
 	ball.failed.connect(failed)
 	ball.diverted.connect(increase_score)
+	$HUD/Start.pressed.connect(start)
+	$HUD/Winner.hide()
+	$Ball.hide()
+	$HUD/Turn.hide()
+	$HUD/Player1Mistakes.hide()
+	$HUD/Player2Mistakes.hide()
+	$HUD/Score.hide()
+	$HUD/HighScore.hide()
+	"""
+	$Paddle1.hide()
+	$Paddle2.hide()
+	$Arena.hide()
+	"""
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if ball.ball_speed == 0:
+	if ball.ball_speed == 0 and ball.is_game_over == false:
 		var paddle_rotation = 0
 		if start_player == 1:
 			paddle_rotation = paddle1.rotation
@@ -43,38 +55,49 @@ func _process(delta: float) -> void:
 					ball.angle = randi_range(100, 170)
 				else:
 					ball.angle = randi_range(190, 260)
-			if start_player == 1:
-				start_player = 2
-			else:
-				start_player = 1
+			if player_amount > 1:
+				if start_player == 1:
+					start_player = 2
+				else:
+					start_player = 1
 
 func failed():
-	if ball.turn == 1:
-		player1_mistakes += 1
-		$HUD/Player1Mistakes.text = "Player 1 Mistakes: " + str(player1_mistakes)
-	else:
-		player2_mistakes += 1
-		$HUD/Player2Mistakes.text = "Player 2 Mistakes: " + str(player2_mistakes)
 	if score > high_score:
 		high_score = score
-	$HUD/HighScore.text = str(high_score) + " HIGH SCORE"
-	if player1_mistakes == 5:
-		$HUD/Winner.text = "Player 2 WON!!!"
-		$HUD/Restart.show()
-		$HUD/Winner.show()
-		ball.is_game_over = true
-		ball.ball_speed == 0
-	elif player2_mistakes == 5:
-		$HUD/Winner.text = "Player 1 WON!!!"
-		$HUD/Winner.show()
-		$HUD/Restart.show()
-		ball.is_game_over = true
-		ball.ball_speed == 0
+		$HUD/HighScore.text = str(high_score) + " HIGH SCORE"
+	
+	if player_amount > 1:
+		if ball.turn == 1:
+			player1_mistakes += 1
+			$HUD/Player1Mistakes.text = "Player 1 Mistakes: " + str(player1_mistakes)
+		else:
+			player2_mistakes += 1
+			$HUD/Player2Mistakes.text = "Player 2 Mistakes: " + str(player2_mistakes)
+		if player1_mistakes == 3:
+			$HUD/Winner.text = "Player 2 WON!!!"
+			$HUD/Start.show()
+			$HUD/Winner.show()
+			$HUD/PlayerAmount.show()
+			ball.is_game_over = true
+			ball.ball_speed == 0
+		elif player2_mistakes == 3:
+			$HUD/Winner.text = "Player 1 WON!!!"
+			$HUD/Winner.show()
+			$HUD/Start.show()
+			$HUD/PlayerAmount.show()
+			ball.is_game_over = true
+			ball.ball_speed == 0
+		elif ball.is_game_over == false:
+			new_game()
 	elif ball.is_game_over == false:
-		new_game()
+		$HUD/Start.show()
+		$HUD/PlayerAmount.show()
+		ball.is_game_over = true
+		print("failed")
 
 func new_game():
-	$HUD/Restart.hide()
+	$HUD/Start.hide()
+	print("new game")
 	ball.position = Vector2(575, 323.5)
 	ball.adjust_speed = true
 	score = 0
@@ -84,18 +107,37 @@ func new_game():
 func increase_score():
 	score += 1
 	$HUD/Score.text = str(score) + " Score"
-	$HUD/Turn.text = "Player Turn: " + str(ball.turn)
+	if player_amount > 1:
+		$HUD/Turn.text = "Player Turn: " + str(ball.turn)
 
-func restart():
-	ball.turn = 1
-	start_player = 1
-	player1_mistakes = -1
-	player2_mistakes = 0
+func start():
+	print("start")
+	ball.position = Vector2(575, 323.5)
+	ball.ball_speed = 0
+	player_amount = $HUD/PlayerAmount.get_selected_id()
+	ball.player_amount = player_amount
 	ball.is_game_over = false
 	ball.adjust_speed = true
 	$HUD/Winner.hide()
-	$HUD/Restart.hide()
-	$HUD/Player1Mistakes.text = "Player 1 Mistakes: " + str(player1_mistakes)
-	$HUD/Player2Mistakes.text = "Player 2 Mistakes: " + str(player2_mistakes)
-	$HUD/Turn.text = "Player Turn: " + str(ball.turn)
+	$HUD/Start.hide()
+	$HUD/PlayerAmount.hide()
+	$Ball.show()
+	$Paddle2.hide()
+	$HUD/Turn.hide()
+	$HUD/Player1Mistakes.hide()
+	$HUD/Player2Mistakes.hide()
+	ball.turn = 1
+	start_player = 1
+	if player_amount > 1:
+		player1_mistakes = 0
+		player2_mistakes = 0
+		$HUD/Player1Mistakes.text = "Player 1 Mistakes: " + str(player1_mistakes)
+		$HUD/Player2Mistakes.text = "Player 2 Mistakes: " + str(player2_mistakes)
+		$HUD/Turn.text = "Player Turn: " + str(ball.turn)
+		$HUD/Turn.show()
+		$HUD/Player1Mistakes.show()
+		$HUD/Player2Mistakes.show()
+		$Paddle2.show()
 	$HUD/Score.text = "0 Score"
+	$HUD/Score.show()
+	$HUD/HighScore.show()

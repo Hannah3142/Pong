@@ -3,8 +3,8 @@ extends Area2D
 class_name Paddle2
 
 # -10, 10; -15, 15
-var start_angle = -15
-var end_angle = 15
+var start_angle = -20
+var end_angle = 20
 var paddle_speed = 5
 
 var radius = 250

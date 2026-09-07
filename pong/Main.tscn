@@ -23,13 +23,13 @@ script = ExtResource("5_fos0i")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=607246976]
 
-[node name="Restart" type="Button" parent="HUD" unique_id=973308325]
-offset_left = 510.5
-offset_top = 300.0
-offset_right = 637.0
-offset_bottom = 350.0
+[node name="Start" type="Button" parent="HUD" unique_id=973308325]
+offset_left = 507.0
+offset_top = 354.0
+offset_right = 633.5
+offset_bottom = 404.0
 theme_override_font_sizes/font_size = 30
-text = "Restart"
+text = "Start"
 
 [node name="Score" type="Label" parent="HUD" unique_id=661422335]
 offset_left = 951.0
@@ -80,3 +80,16 @@ offset_right = 735.0
 offset_bottom = 282.0
 theme_override_font_sizes/font_size = 42
 text = "Player 0 WON!!!"
+
+[node name="PlayerAmount" type="OptionButton" parent="HUD" unique_id=2020887368]
+offset_left = 491.0
+offset_top = 289.0
+offset_right = 656.0
+offset_bottom = 336.0
+theme_override_font_sizes/font_size = 28
+selected = 0
+item_count = 2
+popup/item_0/text = "1 Player"
+popup/item_0/id = 1
+popup/item_1/text = "2 Player"
+popup/item_1/id = 2
