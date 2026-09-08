@@ -16,6 +16,9 @@ var paddle_rotation = 0
 
 var collision_poly: CollisionPolygon2D
 
+var acceleration = 0.0
+var current_speed = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	position = Vector2(575, 323.5)
@@ -27,11 +30,16 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_A):
-		rotation += deg_to_rad(paddle_speed)
+		acceleration = move_toward(current_speed, paddle_speed, 50*delta)
+		rotation += deg_to_rad(acceleration)
+		current_speed = acceleration
 	elif Input.is_key_pressed(KEY_D):
-		rotation -= deg_to_rad(paddle_speed)
-	paddle_rotation = rad_to_deg(rotation)
-	paddle_rotation = wrapf(paddle_rotation, 0, 360)
+		acceleration = move_toward(current_speed, paddle_speed, 50*delta)
+		rotation -= deg_to_rad(acceleration)
+		current_speed = acceleration
+	else:
+		acceleration = 0
+		current_speed = 0
 
 func _draw():
 	draw_arc(Vector2.ZERO, radius, deg_to_rad(start_angle), deg_to_rad(end_angle), point_count, blue, thickness)

@@ -4,7 +4,7 @@ var radius = 10
 const white = Color.WHITE
 var angle = 0
 
-var target_speed = 7
+var target_speed = 5
 var ball_speed = 0
 
 signal diverted

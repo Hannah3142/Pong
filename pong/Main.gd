@@ -114,7 +114,7 @@ func start():
 	print("start")
 	ball.position = Vector2(575, 323.5)
 	ball.ball_speed = 0
-	player_amount = $HUD/PlayerAmount.get_selected_id()
+	player_amount = int($HUD/PlayerAmount.value)
 	ball.player_amount = player_amount
 	ball.is_game_over = false
 	ball.adjust_speed = true
@@ -138,6 +138,7 @@ func start():
 		$HUD/Player1Mistakes.show()
 		$HUD/Player2Mistakes.show()
 		$Paddle2.show()
+	score = 0
 	$HUD/Score.text = "0 Score"
 	$HUD/Score.show()
 	$HUD/HighScore.show()
